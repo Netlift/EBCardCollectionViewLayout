@@ -39,7 +39,10 @@ static NSString * const CellKind = @"CardCell";
 }
 
 - (CGFloat)pageWidth {
-    CGFloat retVal = [self cardWidth] + _offset.horizontal / 2;
+    // Netlift tweak
+    //CGFloat retVal = [self cardWidth] + _offset.horizontal / 2;
+    CGFloat retVal = [self cardWidth] + _offset.horizontal;
+    // [End of] Netlift tweak
     return retVal;
 }
 
@@ -214,7 +217,12 @@ static NSString * const CellKind = @"CardCell";
     
     if (_layoutType == EBCardCollectionLayoutHorizontal) {
         NSInteger posX = _offset.horizontal / 2 + [self pageWidth] * indexPath.row;
-        
+        // Netlift tweak
+        if (indexPath.row == 0) {
+            posX *= 2;
+        }
+        // [End of] Netlift tweak
+
         if ([self.collectionView numberOfItemsInSection:0] == 1) {
             //  If there's just an only item. Center it.
             posX = _offset.horizontal + [self pageWidth] * indexPath.row;
